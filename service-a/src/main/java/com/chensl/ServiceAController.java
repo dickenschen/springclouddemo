@@ -17,7 +17,7 @@ public class ServiceAController {
 
     @RequestMapping(value = "/")
     public String home(){
-        return "service-a";
+        return "home:service-a";
     }
     @RequestMapping("/message")
     public String getMessage() {
