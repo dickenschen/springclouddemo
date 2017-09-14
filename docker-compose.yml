@@ -1,0 +1,46 @@
+version: '2'
+services:
+  eureka-server:
+    image: eureka-server
+    ports:
+      - 8761:8761
+
+  config-server:
+    image: config-server
+    ports:
+      - 8750:8750
+    links:
+      - eureka-server
+
+  service-zuul:
+    image: service-zuul
+    ports:
+      - 8760:8760
+    links:
+      - eureka-server
+      - service-ribbon-hystrix
+      - service-feign-hystrix
+
+  service-ribbon-hystrix:
+    image: service-ribbon-hystrix
+    ports:
+      - 8766:8766
+    links:
+      - eureka-server
+      - service-a
+
+  service-feign-hystrix:
+    image: service-feign-hystrix
+    ports:
+      - 8767:8767
+    links:
+      - eureka-server
+      - service-a
+
+  service-a:
+    image: service-a
+    ports:
+      - 8762:8762
+    links:
+      - eureka-server
+      - config-server
