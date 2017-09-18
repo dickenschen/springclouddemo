@@ -19,7 +19,7 @@ public class ServiceAController {
 
     @Autowired
     private DiscoveryClient discoveryClient;
-    @Value("${version}")
+    @Value("${version ?: 'init version'}")
     private String version;
 
 
